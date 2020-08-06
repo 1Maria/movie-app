@@ -9,7 +9,12 @@ app.get('/', (req, res) => {
 })
 
 app.get('/movies/currently_playing', async (req, res) => {
-    const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.APIKEY}`);
+    let { page } = req.query;
+    const pageInt = parseInt(page);
+    // Ensure page conforms to API restrictions 
+    page = pageInt < 1 || pageInt > 1000 ? 1 : page;
+
+    const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.APIKEY}&page=${page}`);
     const currentlyPlaying = await movieResponse.json();
     res.json(currentlyPlaying);
 });
