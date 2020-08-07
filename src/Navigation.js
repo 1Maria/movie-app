@@ -13,12 +13,13 @@ function Navigation(props) {
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/currently_playing">Currently Playing</Nav.Link>
                 </Nav>
-                <Form onSubmit={ (e) => {e.preventDefault()}} inline>
+                <Form onSubmit={(e) => {
+                        e.preventDefault();
+                        props.onSearch(query);
+                        history.push('/search');
+                        }} inline>
                     <FormControl onChange={(e) => setQuery(e.target.value)} value={query} type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button onClick={() => {
-                        props.onSearch(query)
-                        history.push('/search')
-                        }} variant="outline-success">Search</Button>
+                    <Button type="submit" variant="outline-success">Search</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>

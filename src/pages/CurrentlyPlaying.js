@@ -25,6 +25,7 @@ class CurrentlyPlaying extends React.Component {
             breakLinkClassName: 'page-link',
             onPageChange: (page) => {
                 this.getCurrentlyPlaying(page.selected + 1);
+                window.scrollTo(0,0);
             },
             containerClassName: 'pagination justify-content-center',
             subContainerClassName: 'pages pagination',
@@ -57,7 +58,6 @@ class CurrentlyPlaying extends React.Component {
         return (
             <div>
                 <h1 className="text-center">Currently Playing Movies</h1>
-                <ReactPaginate {...this.state.paginationConfig} />
 
                 <Row xs={4} md={4}>
                     {this.state.movies.results.map(movie =>

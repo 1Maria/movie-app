@@ -25,6 +25,7 @@ class CurrentlyPlaying extends React.Component {
             breakLinkClassName: 'page-link',
             onPageChange: (page) => {
                 this.searchMovies(this.props.query, page.selected + 1);
+                window.scrollTo(0,0);
             },
             containerClassName: 'pagination justify-content-center',
             subContainerClassName: 'pages pagination',
@@ -63,8 +64,7 @@ class CurrentlyPlaying extends React.Component {
     render() {
         return (
             <div>
-                <h1 className="text-center">Search</h1>
-                <ReactPaginate {...this.state.paginationConfig} />
+                <h1 className="text-center">{this.props.query !== '' ? `Search Results for: ${this.props.query}` : `Search` }</h1>
 
                 <Row xs={4} md={4}>
                     {this.state.movies.results.map(movie =>
@@ -75,7 +75,7 @@ class CurrentlyPlaying extends React.Component {
                     )}
                 </Row>
 
-                <ReactPaginate {...this.state.paginationConfig} />
+                {this.props.query && <ReactPaginate {...this.state.paginationConfig} />}
             </div>
         )
     }
