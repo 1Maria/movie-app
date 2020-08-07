@@ -29,7 +29,7 @@ class App extends React.Component {
       onPageChange: (page) => {
         this.getCurrentlyPlaying(page.selected + 1);
       },
-      containerClassName: 'pagination',
+      containerClassName: 'pagination justify-content-center',
       subContainerClassName: 'pages pagination', 
       activeClassName: 'active',
       offset: 1
