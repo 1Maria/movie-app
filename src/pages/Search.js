@@ -24,7 +24,7 @@ class CurrentlyPlaying extends React.Component {
             nextLinkClassName: 'page-link',
             breakLinkClassName: 'page-link',
             onPageChange: (page) => {
-                this.getCurrentlyPlaying(page.selected + 1);
+                this.searchMovies(this.props.query, page.selected + 1);
             },
             containerClassName: 'pagination justify-content-center',
             subContainerClassName: 'pages pagination',
@@ -34,29 +34,36 @@ class CurrentlyPlaying extends React.Component {
     };
 
     componentDidMount() {
-        this.getCurrentlyPlaying();
+        if (this.props.query !== '') {
+            this.searchMovies(this.props.query);
+        }
     }
 
-    getCurrentlyPlaying = async (page = 1) => {
-        const movieResponse = await fetch(`/movies/currently_playing?page=${page}`);
-        const currentlyPlayingMovies = await movieResponse.json();
+    componentDidUpdate(prevProps) {
+        if (prevProps.query !== this.props.query) {
+            this.searchMovies(this.props.query);
+        }
+    }
 
+    searchMovies = async (query, page = 1) => {
+        const searchResponse = await fetch(`/movies/search?query=${encodeURIComponent(query)}&page=${page}`);
+        const movieResults = await searchResponse.json();
         this.setState(prevState => {
             return {
-                movies: currentlyPlayingMovies,
+                movies: movieResults,
                 paginationConfig: {
                     ...prevState.paginationConfig,
-                    offset: currentlyPlayingMovies.page,
-                    pageCount: currentlyPlayingMovies.total_pages
+                    offset: movieResults.page,
+                    pageCount: movieResults.total_pages
                 }
             }
-        });
+        })
     }
 
     render() {
         return (
             <div>
-                <h1 className="text-center">Currently Playing Movies</h1>
+                <h1 className="text-center">Search</h1>
                 <ReactPaginate {...this.state.paginationConfig} />
 
                 <Row xs={4} md={4}>

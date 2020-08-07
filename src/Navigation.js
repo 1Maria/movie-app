@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-const Navigation = () => {
+function Navigation(props) {
+    const [query, setQuery] = useState('');
+    const history = useHistory();
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand as={Link} to="/">Movies</Navbar.Brand>
@@ -11,9 +13,12 @@ const Navigation = () => {
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/currently_playing">Currently Playing</Nav.Link>
                 </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-success">Search</Button>
+                <Form onSubmit={ (e) => {e.preventDefault()}} inline>
+                    <FormControl onChange={(e) => setQuery(e.target.value)} value={query} type="text" placeholder="Search" className="mr-sm-2" />
+                    <Button onClick={() => {
+                        props.onSearch(query)
+                        history.push('/search')
+                        }} variant="outline-success">Search</Button>
                 </Form>
             </Navbar.Collapse>
         </Navbar>
