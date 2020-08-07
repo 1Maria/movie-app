@@ -9,6 +9,10 @@ class App extends React.Component {
     movies: {}
   };
 
+  componentDidMount() {
+    this.getCurrentlyPlaying();
+  }
+
   getCurrentlyPlaying = async () => {
     const movieResponse = await fetch(`/movies/currently_playing`);
     const currentlyPlayingMovies = await movieResponse.json()
@@ -23,7 +27,6 @@ class App extends React.Component {
         <Row>
           <div className="App">
             <div className="movies">
-              <Button onClick={this.getCurrentlyPlaying}>Get Currently Playing</Button>
               <span className="currently-playing">{JSON.stringify(this.state.movies)}</span>
             </div>
           </div>
