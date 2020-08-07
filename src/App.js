@@ -2,11 +2,14 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Container, Row, Button } from 'react-bootstrap';
+import Movie from "./Movie";
 
 class App extends React.Component {
 
   state = {
-    movies: {}
+    movies: {
+      results: []
+    }
   };
 
   componentDidMount() {
@@ -27,7 +30,9 @@ class App extends React.Component {
         <Row>
           <div className="App">
             <div className="movies">
-              <span className="currently-playing">{JSON.stringify(this.state.movies)}</span>
+              { this.state.movies.results.map( movie => 
+                <Movie {...movie} />
+              )}
             </div>
           </div>
         </Row>
