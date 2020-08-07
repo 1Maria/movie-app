@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import fetch from 'node-fetch';
+import { Container, Row, Button } from 'react-bootstrap';
 
 class App extends React.Component {
 
@@ -13,18 +13,23 @@ class App extends React.Component {
     const movieResponse = await fetch(`/movies/currently_playing`);
     const currentlyPlayingMovies = await movieResponse.json()
     this.setState({
-        movies: currentlyPlayingMovies
+      movies: currentlyPlayingMovies
     });
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="movies">
-          <button onClick={ this.getCurrentlyPlaying }>Get Currently Playing</button>
-          <span className="currently-playing">{ JSON.stringify(this.state.movies) }</span>
-        </div>
-      </div>
+      <Container>
+        <Row>
+          <div className="App">
+            <div className="movies">
+              <Button onClick={this.getCurrentlyPlaying}>Get Currently Playing</Button>
+              <span className="currently-playing">{JSON.stringify(this.state.movies)}</span>
+            </div>
+          </div>
+        </Row>
+      </Container>
+
     );
   };
 }
