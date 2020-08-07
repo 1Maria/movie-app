@@ -1,9 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Movie from "./Movie";
+import CurrentlyPlaying from "./pages/CurrentlyPlaying";
 import ReactPaginate from 'react-paginate';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 class App extends React.Component {
 
@@ -30,7 +37,7 @@ class App extends React.Component {
         this.getCurrentlyPlaying(page.selected + 1);
       },
       containerClassName: 'pagination justify-content-center',
-      subContainerClassName: 'pages pagination', 
+      subContainerClassName: 'pages pagination',
       activeClassName: 'active',
       offset: 1
     }
@@ -58,19 +65,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Router>
+        <Container>
 
-        <ReactPaginate {...this.state.paginationConfig} />
+          <ReactPaginate {...this.state.paginationConfig} />
 
-        <Row xs={4} md={4}>
-          {this.state.movies.results.map(movie =>
-            <Movie {...movie} />
-          )}
-        </Row>
+          <Switch>
+            <Route path="/">
+              <CurrentlyPlaying movies={this.state.movies} />
+            </Route>
+            <Route path="/currently_playing" default>
+              <CurrentlyPlaying movies={this.state.movies} />
+            </Route>
+          </Switch>
 
-        <ReactPaginate {...this.state.paginationConfig} />
+          <ReactPaginate {...this.state.paginationConfig} />
 
-      </Container>
+        </Container>
+      </Router>
     );
   };
 }
