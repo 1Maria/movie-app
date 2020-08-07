@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Row } from 'react-bootstrap';
-import Movie from "../Movie";
+import Movie from '../Movie';
 
 const CurrentlyPlaying = (props) => {
     return (

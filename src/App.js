@@ -1,16 +1,17 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import { Container } from 'react-bootstrap';
-import Movie from "./Movie";
-import CurrentlyPlaying from "./pages/CurrentlyPlaying";
 import ReactPaginate from 'react-paginate';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
-} from "react-router-dom";
+} from 'react-router-dom';
+import Nav from './Navigation';
+import CurrentlyPlaying from './pages/CurrentlyPlaying';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 
 class App extends React.Component {
 
@@ -66,6 +67,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
+        <Nav></Nav>
         <Container>
 
           <ReactPaginate {...this.state.paginationConfig} />
