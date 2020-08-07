@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Container, Row, Button } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import Movie from "./Movie";
 
 class App extends React.Component {
@@ -27,15 +27,11 @@ class App extends React.Component {
   render() {
     return (
       <Container>
-        <Row>
-          <div className="App">
-            <div className="movies">
-              { this.state.movies.results.map( movie => 
-                <Movie {...movie} />
-              )}
-            </div>
-          </div>
-        </Row>
+          <Row xs={4} md={4}>
+            {this.state.movies.results.map(movie => 
+              <Movie {...movie} />
+            )}
+          </Row>
       </Container>
 
     );
